@@ -5,6 +5,8 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { PassengerDataContext } from "../context/PassengerContext";
 import uberLogoBlack from "../assets/image/uber-logo-black.png"
+import { TbLogout } from "react-icons/tb";
+import Cookies from "js-cookie";
 
 const PassengerHome = () => {
     const searchPanel = useRef(null);
@@ -27,6 +29,11 @@ const PassengerHome = () => {
         }
     }, [panelOpen]);
 
+    const passengerLogout = () => {
+        Cookies.remove("token");
+        window.location.reload();
+    }
+
     return (
         <>
             <div>
@@ -35,6 +42,9 @@ const PassengerHome = () => {
                     className="relative"
                 >
                     <img className="absolute top-3 left-3 w-1/4" src={uberLogoBlack} alt="" />
+                    <span onClick={()=>{
+                        passengerLogout();
+                    }} className="absolute top-3 right-5 text-3xl"  ><TbLogout /></span>
                     <img
                         className=" h-screen"
                         src="https://simonpan.com/wp-content/themes/sp_portfolio/assets/uber-unexpected-pullover.jpg"

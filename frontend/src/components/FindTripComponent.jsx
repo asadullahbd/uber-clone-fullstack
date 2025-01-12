@@ -51,11 +51,11 @@ const FindTripComponent = () => {
                         <PiLineVerticalBold />
                     </i>
                 </form>
-                {panelOpen && (
+                {/* {panelOpen && (
                     <div>
                         <LocationSearchComponent />
                     </div>
-                )}
+                )} */}
             </div>
         </>
     );

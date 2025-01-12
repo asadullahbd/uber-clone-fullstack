@@ -5,6 +5,7 @@ import cors from "cors";
 import connectDB from "./db/db.js";
 import driverRoutes from './routes/driver.routes.js';
 import passengerRoutes from './routes/passenger.routes.js';
+import mapsRoutes from './routes/maps.routes.js';
 
 const app = express();
 
@@ -20,6 +21,7 @@ app.use(cors());
 // routes 
 app.use("/driver",driverRoutes);   
 app.use("/passenger",passengerRoutes);   
+app.use("/maps",mapsRoutes);   
 
 
 export default app;
