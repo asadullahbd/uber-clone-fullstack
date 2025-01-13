@@ -18,7 +18,7 @@ export const createPassenger = async (req, res) => {
         const token = generateToken(id); // function to generate token
         // res.cookie('token', token);
 
-        res.status(201).json({passenger, token});
+        res.status(201).json({message:"passenger created successfully.", token});
     } catch (error) {
         res.status(400).json({ message: error.message });
     }
@@ -46,6 +46,3 @@ export const loginPassenger = async (req, res) => {
     }
 };
 
-export const passengerHome = async (req, res) => {
-    res.status(200).json({ message: "Welcome to Passenger Home" });
-};
