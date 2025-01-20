@@ -71,7 +71,7 @@ const PassengerLogin = () => {
                             type="submit"
                             className="mt-2 rounded w-full bg-black py-2 text-white block text-center font-semibold"
                         >
-                            Login
+                            Login as passenger
                         </button>
                     </form>
                     <p className="mt-2 text-center">
@@ -85,7 +85,7 @@ const PassengerLogin = () => {
                     </p>
                 </div>
                 <div className="w-full">
-                    <Link className=" mt-2 rounded w-full bg-[#10B461] py-2 text-white block text-center font-semibold">
+                    <Link to={"/driver-login"} className=" mt-2 rounded w-full bg-[#000000] py-2 text-white block text-center font-semibold">
                         Sign in as Driver
                     </Link>
                 </div>

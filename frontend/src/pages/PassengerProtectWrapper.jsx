@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import Cookies from "js-cookie";
-import { PassengerDataContext } from "../context/PassengerContext";
 import { useNavigate } from "react-router-dom";
 
 const PassengerProtectWrapper = ({ children }) => {
