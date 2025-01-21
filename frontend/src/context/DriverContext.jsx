@@ -4,7 +4,7 @@ export const DriverDataContext = createContext();
 
 const DriverContext = ({ children }) => {
     const [driverDetailsOpen, setDriverDetailsOpen] = useState(true);
-    const [newRidePanelOpen, setNewRidePanelOpen] = useState(true); 
+    const [newRidePanelOpen, setNewRidePanelOpen] = useState(false); 
     const [ongoingRidePanelOpen, setOngoingRidePanelOpen] = useState(false); 
     const [finishRidePanelOpen, setFinishRidePanelOpen] = useState(false); 
 

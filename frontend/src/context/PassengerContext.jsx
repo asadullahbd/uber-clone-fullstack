@@ -9,6 +9,10 @@ const PassengerContext = ({ children }) => {
         useState(false);
     const [confirmTripComponentOpen, setConfirmTripComponentOpen] =
         useState(false);
+    const [pickupLocation, setPickupLocation] = useState("");
+    const [destination, setDestination] = useState("");
+    const [fare, setFare] = useState(0);
+        
     const value = {
         findTripComponentOpen,
         setFindTripComponentOpen,
@@ -18,6 +22,12 @@ const PassengerContext = ({ children }) => {
         setLookingForDriverComponentOpen,
         confirmTripComponentOpen,
         setConfirmTripComponentOpen,
+        pickupLocation,
+        setPickupLocation,
+        destination,
+        setDestination,
+        fare,
+        setFare,
     };
     return (
         <div>

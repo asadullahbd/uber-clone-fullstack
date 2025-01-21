@@ -4,6 +4,9 @@ import { IoLocationSharp } from "react-icons/io5";
 import { TbCoinTakaFilled } from "react-icons/tb";
 import { DriverDataContext } from "../context/DriverContext";
 
+import io from "socket.io-client";
+const socket = io.connect(`http://localhost:4100`);
+
 const NewRidePanel = () => {
     const {
         driverDetailsOpen,
@@ -60,15 +63,26 @@ const NewRidePanel = () => {
                 </div>
                 <div>
                     <button
-                    onClick={()=>{
-                        setDriverDetailsOpen(false);
-                        setNewRidePanelOpen(false);
-                        setOngoingRidePanelOpen(true);
-                    }}
-                     className="w-full bg-green-600 mt-2 rounded py-2 text-white block text-center font-semibold">
+                        onClick={() => {
+                            setDriverDetailsOpen(false);
+                            setNewRidePanelOpen(false);
+                            setOngoingRidePanelOpen(true);
+
+                            socket.emit("message_from_client", {
+                                message: "driver_accepted_ride",
+                            });
+                        }}
+                        className="w-full bg-green-600 mt-2 rounded py-2 text-white block text-center font-semibold"
+                    >
                         Accept
                     </button>
-                    <button className="w-full bg-gray-500 mt-2 rounded py-2 text-white block text-center font-semibold">
+                    <button
+                        onClick={() => {
+                            setDriverDetailsOpen(true);
+                            setNewRidePanelOpen(false);
+                        }}
+                        className="w-full bg-gray-500 mt-2 rounded py-2 text-white block text-center font-semibold"
+                    >
                         Ignore
                     </button>
                 </div>

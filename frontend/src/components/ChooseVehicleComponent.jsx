@@ -2,23 +2,35 @@ import React, { useContext, useEffect } from "react";
 import { IoMdPerson } from "react-icons/io";
 import { PassengerDataContext } from "../context/PassengerContext";
 
+import io from "socket.io-client";
+const socket = io.connect(`http://localhost:4100`)
+
 const ChooseVehicleComponent = () => {
     const {
         setChooseVehiclePanelOpen,
         setFindTripComponentOpen,
         setLookingForDriverComponentOpen,
+        pickupLocation,
+        destination,
+        fare,
     } = useContext(PassengerDataContext);
+
+    
     return (
         <>
             <div className="flex flex-col justify-between items-start gap-5 p-7">
                 <div>
                     <h2 className="text-2xl font-bold">Choose a Vehicle</h2>
                 </div>
+                
                 <div
                     onClick={() => {
                         setLookingForDriverComponentOpen(true);
                         setChooseVehiclePanelOpen(false);
                         setFindTripComponentOpen(false);
+
+                        socket.emit("message_from_client", { message: "searching_driver"});
+                        
                     }}
                     className="border border-gray-200 p-2 my-1"
                 >
@@ -42,6 +54,7 @@ const ChooseVehicleComponent = () => {
                         <h3 className="p-2 font-bold">$130</h3>
                     </div>
                 </div>
+                
                 <div className="border border-gray-200 p-2 my-1">
                     <div className="flex justify-start items-center">
                         <img

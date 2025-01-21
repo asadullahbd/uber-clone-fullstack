@@ -1,4 +1,4 @@
-import React, { useContext, useRef } from "react";
+import React, { useContext, useEffect, useRef } from "react";
 
 import LiveTracking from "../components/LiveTracking";
 
@@ -14,9 +14,28 @@ import NewRidePanel from "../components/NewRidePanel";
 import OngoingRide from "../components/OngoingRide";
 import FinishRide from "../components/FinishRide";
 
+import io from "socket.io-client";
+const socket = io.connect(`http://localhost:4100`)
+
 const DriverHome = () => {
-    const { driverDetailsOpen, newRidePanelOpen, ongoingRidePanelOpen,finishRidePanelOpen } =
-        useContext(DriverDataContext);
+    const {
+        driverDetailsOpen,
+        newRidePanelOpen,
+        setNewRidePanelOpen,
+        ongoingRidePanelOpen,
+        finishRidePanelOpen,
+    } = useContext(DriverDataContext);
+
+    useEffect(() => {
+        socket.on("message_from_server", (data) => {
+            if(data.message === "searching_driver"){
+                setNewRidePanelOpen(true);
+            }
+            if(data.message === "driver_accepted_ride"){
+                setNewRidePanelOpen(false);
+            }
+        });
+    }, [socket]);
 
     const liveMap = useRef(null);
     const driverDetailsRef = useRef(null);

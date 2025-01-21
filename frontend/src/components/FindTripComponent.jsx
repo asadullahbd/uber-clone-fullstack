@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useRef } from "react";
 import { IoIosArrowDown } from "react-icons/io";
 import { PiLineVerticalBold } from "react-icons/pi";
 import { PassengerDataContext } from "../context/PassengerContext";
@@ -8,14 +8,24 @@ const FindTripComponent = () => {
         findTripComponentOpen,
         setFindTripComponentOpen,
         setChooseVehiclePanelOpen,
+        setPickupLocation,
+        setDestination,
+        setFare,
     } = useContext(PassengerDataContext);
 
-
+    const pickupLocationRef= useRef(null);
+    const destinationRef= useRef(null);
+    const fareRef= useRef(null);
+    
     const handleSubmit = (e) => {
         e.preventDefault();
 
         setFindTripComponentOpen(false);
         setChooseVehiclePanelOpen(true);
+
+        setPickupLocation(pickupLocationRef.current.value);
+        setDestination(destinationRef.current.value);
+        setFare(fareRef.current.value);
     };
 
     return (
@@ -49,6 +59,7 @@ const FindTripComponent = () => {
                         placeholder="Add a pickup location"
                         required
                         className="w-full py-2 rounded px-6 mb-4 bg-[#eee]"
+                        ref={pickupLocationRef}
                     />
                     <input
                         
@@ -56,6 +67,15 @@ const FindTripComponent = () => {
                         placeholder="Enter your destination"
                         required
                         className="w-full py-2 rounded px-6 mb-5 bg-[#eee]"
+                        ref={destinationRef}
+                    />
+                    <input
+                        
+                        type="number"
+                        placeholder="Fare?"
+                        required
+                        className="w-full py-2 rounded px-6 mb-5 bg-[#eee]"
+                        ref={fareRef}
                     />
                     <button
                         type="submit"

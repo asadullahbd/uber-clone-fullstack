@@ -46,15 +46,22 @@ export const getAutoCompleteSuggestionsService = async (input) => {
         throw new Error("Input is required");
     }
 
-    const apiKey = process.env.GOOGLE_MAPS_API; // Use Go-Maps Pro API key
-    const url = `https://gomapspro.api/autocomplete?query=${encodeURIComponent(
-        input
-    )}&apiKey=${apiKey}`;   
+    const apiKey = process.env.GOOGLE_MAPS_API; // Used Go-Maps Pro API key
+    // const url = `https://gomapspro.api/autocomplete?query=${encodeURIComponent(
+    //     input
+    // )}&apiKey=${apiKey}`;  
+    
+    //checking 
+    // `https://maps.gomaps.pro/maps/api/place/queryautocomplete/json?input=dhak&offset=3&key=AlzaSyjk2XhgQYJ5BWxacNaR0WmvhN59Fryc4QT`
+
+    const url = `https://maps.gomaps.pro/maps/api/place/queryautocomplete/json?input=${input}&offset=3&key=${apiKey}`
+
+    //checking
 
     try {
         const response = await axios.get(url);
         if (response.status === 200) {
-            return response.data.suggestions || [];
+            return response.data.predictions.map(prediction => prediction.description).filter(value => value);
         } else {
             throw new Error(response.data.message || "Failed to fetch suggestions");
         }

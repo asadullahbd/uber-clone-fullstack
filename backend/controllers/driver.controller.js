@@ -74,12 +74,12 @@ export const loginDriverController = async (req, res) => {
         }
         
         const token = generateToken(driver._id);
-        res.cookie('token', token, {
-            httpOnly: true, // Prevents JavaScript from accessing the cookie
-            secure: true,   // Ensures cookie is only sent over HTTPS
-            sameSite: 'strict', // Strict cross-site access policy
-            maxAge: 60 * 60 * 1000, // 1 hour
-        });
+        // res.cookie('token', token, {
+        //     httpOnly: true, // Prevents JavaScript from accessing the cookie
+        //     secure: true,   // Ensures cookie is only sent over HTTPS
+        //     sameSite: 'strict', // Strict cross-site access policy
+        //     maxAge: 60 * 60 * 1000, // 1 hour
+        // });
         res.status(200).json({message:"login successful.",token});
     } catch (error) {
         res.status(400).json({error: error});

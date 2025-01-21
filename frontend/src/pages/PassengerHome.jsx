@@ -1,4 +1,4 @@
-import React, { useContext, useRef } from "react";
+import React, { useContext, useEffect, useRef } from "react";
 import FindTripComponent from "../components/FindTripComponent";
 import LiveTracking from "../components/LiveTracking";
 import { useGSAP } from "@gsap/react";
@@ -11,6 +11,9 @@ import ChooseVehicleComponent from "../components/ChooseVehicleComponent";
 import LookingForDriver from "../components/LookingForDriver";
 import ConfirmedTrip from "../components/ConfirmedTrip";
 import { useNavigate } from "react-router-dom";
+
+import io from "socket.io-client";
+const socket = io.connect(`http://localhost:4100`)
 
 const PassengerHome = () => {
     const searchPanel = useRef(null);
@@ -25,10 +28,23 @@ const PassengerHome = () => {
         findTripComponentOpen,
         chooseVehiclePanelOpen,
         lookingForDriverComponentOpen,
+        setLookingForDriverComponentOpen,
         confirmTripComponentOpen,
         setConfirmTripComponentOpen,
     } = useContext(PassengerDataContext);
 
+
+    useEffect(() => {
+            socket.on("message_from_server", (data) => {
+                
+                if(data.message === "driver_accepted_ride"){
+                    setLookingForDriverComponentOpen(false);
+                    setConfirmTripComponentOpen(true);
+                }
+            });
+        }, [socket]);
+    
+    
     useGSAP(() => {
         if (findTripComponentOpen) {
             gsap.to(searchPanel.current, {
