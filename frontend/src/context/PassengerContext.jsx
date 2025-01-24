@@ -11,7 +11,7 @@ const PassengerContext = ({ children }) => {
         useState(false);
     const [pickupLocation, setPickupLocation] = useState("");
     const [destination, setDestination] = useState("");
-    const [fare, setFare] = useState(0);
+    const [placeSuggestions,setPlaceSuggestions] = useState([]);
         
     const value = {
         findTripComponentOpen,
@@ -26,8 +26,7 @@ const PassengerContext = ({ children }) => {
         setPickupLocation,
         destination,
         setDestination,
-        fare,
-        setFare,
+        placeSuggestions,setPlaceSuggestions
     };
     return (
         <div>

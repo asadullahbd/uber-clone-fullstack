@@ -46,10 +46,8 @@ export const getAutoCompleteSuggestionsService = async (input) => {
         throw new Error("Input is required");
     }
 
-    const apiKey = process.env.GOOGLE_MAPS_API; // Used Go-Maps Pro API key
-    // const url = `https://gomapspro.api/autocomplete?query=${encodeURIComponent(
-    //     input
-    // )}&apiKey=${apiKey}`;  
+    const apiKey = process.env.GOOGLE_MAPS_API; // Used Go-Maps Pro API key   
+   
     
     //checking 
     // `https://maps.gomaps.pro/maps/api/place/queryautocomplete/json?input=dhak&offset=3&key=AlzaSyjk2XhgQYJ5BWxacNaR0WmvhN59Fryc4QT`

@@ -3,7 +3,7 @@ import { IoMdPerson } from "react-icons/io";
 import { PassengerDataContext } from "../context/PassengerContext";
 
 import io from "socket.io-client";
-const socket = io.connect(`http://localhost:4100`)
+const socket = io.connect(`http://localhost:4100`);
 
 const ChooseVehicleComponent = () => {
     const {
@@ -15,26 +15,26 @@ const ChooseVehicleComponent = () => {
         fare,
     } = useContext(PassengerDataContext);
 
-    
     return (
         <>
             <div className="flex flex-col justify-between items-start gap-5 p-7">
                 <div>
                     <h2 className="text-2xl font-bold">Choose a Vehicle</h2>
                 </div>
-                
+
                 <div
                     onClick={() => {
                         setLookingForDriverComponentOpen(true);
                         setChooseVehiclePanelOpen(false);
                         setFindTripComponentOpen(false);
 
-                        socket.emit("message_from_client", { message: "searching_driver"});
-                        
+                        socket.emit("message_from_client", {
+                            message: "searching_driver",
+                        });
                     }}
                     className="border border-gray-200 p-2 my-1"
                 >
-                    <div className="flex justify-start items-center">
+                    <div className="flex justify-start items-center overflow-hidden">
                         <img
                             className="w-1/4 scale-150 "
                             src="https://www.uber-assets.com/image/upload/f_auto,q_auto:eco,c_fill,h_368,w_552/v1548646935/assets/64/93c255-87c8-4e2e-9429-cf709bf1b838/original/3.png"
@@ -54,8 +54,19 @@ const ChooseVehicleComponent = () => {
                         <h3 className="p-2 font-bold">$130</h3>
                     </div>
                 </div>
-                
-                <div className="border border-gray-200 p-2 my-1">
+
+                <div
+                    onClick={() => {
+                        setLookingForDriverComponentOpen(true);
+                        setChooseVehiclePanelOpen(false);
+                        setFindTripComponentOpen(false);
+
+                        socket.emit("message_from_client", {
+                            message: "searching_driver",
+                        });
+                    }}
+                    className="border border-gray-200 p-2 my-1"
+                >
                     <div className="flex justify-start items-center">
                         <img
                             className="w-1/5 mr-2 scale-150 "
@@ -76,11 +87,22 @@ const ChooseVehicleComponent = () => {
                         <h3 className="p-2 font-bold">$65</h3>
                     </div>
                 </div>
-                <div className="border border-gray-200 p-2 my-1">
-                    <div className="flex justify-start items-center">
+                <div
+                    onClick={() => {
+                        setLookingForDriverComponentOpen(true);
+                        setChooseVehiclePanelOpen(false);
+                        setFindTripComponentOpen(false);
+
+                        socket.emit("message_from_client", {
+                            message: "searching_driver",
+                        });
+                    }}
+                    className="border border-gray-200 p-2 my-1"
+                >
+                    <div className="flex justify-start items-center overflow-hidden">
                         <img
                             className="w-1/4 scale-150 "
-                            src="https://www.uber-assets.com/image/upload/f_auto,q_auto:eco,c_fill,h_368,w_552/v1548646935/assets/64/93c255-87c8-4e2e-9429-cf709bf1b838/original/3.png"
+                            src="https://i.pinimg.com/736x/ee/1e/d6/ee1ed6b1dc124aa8150fb622a4c454c3.jpg"
                             alt=""
                         />
                         <div className="z-10 flex flex-col gap-1">

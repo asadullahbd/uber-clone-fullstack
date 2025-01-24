@@ -1,7 +1,9 @@
-import React, { useContext, useRef } from "react";
+import React, { useContext, useRef, useState } from "react";
 import { IoIosArrowDown } from "react-icons/io";
 import { PiLineVerticalBold } from "react-icons/pi";
 import { PassengerDataContext } from "../context/PassengerContext";
+import axios from "axios";
+import LocationSearchComponent from "./LocationSearchComponent";
 
 const FindTripComponent = () => {
     const {
@@ -10,13 +12,60 @@ const FindTripComponent = () => {
         setChooseVehiclePanelOpen,
         setPickupLocation,
         setDestination,
-        setFare,
+        setPlaceSuggestions,
     } = useContext(PassengerDataContext);
 
-    const pickupLocationRef= useRef(null);
-    const destinationRef= useRef(null);
-    const fareRef= useRef(null);
+    const pickupLocationRef = useRef(null);
+    const destinationRef = useRef(null);
+    const [activeField, setActiveField] = useState(null);
+
+    const autoSuggestLocation = async () => {
+        const value =
+            activeField === "pickup"
+                ? pickupLocationRef.current.value
+                : destinationRef.current.value;
+
+        if (value.length > 2) {
+            try {
+                // const response = await axios.get(
+                //     `${import.meta.env.VITE_BASE_URL}/maps/getSuggestions`,
+                //     {
+                //         withCredentials: true,
+                //         params: {
+                //             input: value
+                //         },
+                //     }
+                // );
+
+                const response = {
+                    data: [
+                        "dhaba",
+                        "Dhamaka Premium Indian Kitchen & Lounge, Virginia Parkway, McKinney, TX, USA",
+                        "Dhaka, Bangladesh",
+                        "Dharmasthala, Karnataka, India",
+                        "dharamshala",
+                    ],
+                };
+                setPlaceSuggestions(response.data);
+            } catch (error) {
+                console.error(`error fetching auto suggestions`, error);
+            }
+        }
+    };
+   
     
+
+    const handleSuggestionSelect = (selectedValue) => {
+        if (activeField === "pickup") {
+            pickupLocationRef.current.value = selectedValue; // Update pickup location
+            setPickupLocation(selectedValue);
+        } else if (activeField === "destination") {
+            destinationRef.current.value = selectedValue; // Update destination
+            setDestination(selectedValue);
+        }
+        setPlaceSuggestions([]); // Clear suggestions
+    };
+
     const handleSubmit = (e) => {
         e.preventDefault();
 
@@ -25,7 +74,6 @@ const FindTripComponent = () => {
 
         setPickupLocation(pickupLocationRef.current.value);
         setDestination(destinationRef.current.value);
-        setFare(fareRef.current.value);
     };
 
     return (
@@ -51,7 +99,6 @@ const FindTripComponent = () => {
                     className="relative"
                 >
                     <input
-                        
                         onClick={() => {
                             setFindTripComponentOpen(true);
                         }}
@@ -60,22 +107,21 @@ const FindTripComponent = () => {
                         required
                         className="w-full py-2 rounded px-6 mb-4 bg-[#eee]"
                         ref={pickupLocationRef}
+                        onFocus={() => setActiveField("pickup")}
+                        onChange={autoSuggestLocation}
                     />
+
                     <input
-                        
+                        onClick={() => {
+                            setFindTripComponentOpen(true);
+                        }}
                         type="text"
                         placeholder="Enter your destination"
                         required
                         className="w-full py-2 rounded px-6 mb-5 bg-[#eee]"
                         ref={destinationRef}
-                    />
-                    <input
-                        
-                        type="number"
-                        placeholder="Fare?"
-                        required
-                        className="w-full py-2 rounded px-6 mb-5 bg-[#eee]"
-                        ref={fareRef}
+                        onFocus={() => setActiveField("destination")}
+                        onChange={autoSuggestLocation}
                     />
                     <button
                         type="submit"
@@ -87,6 +133,11 @@ const FindTripComponent = () => {
                         <PiLineVerticalBold />
                     </i>
                 </form>
+                <div>
+                    <LocationSearchComponent
+                        onSelectSuggestion={handleSuggestionSelect}
+                    />
+                </div>
             </div>
         </>
     );
