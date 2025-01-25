@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useRef } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import FindTripComponent from "../components/FindTripComponent";
 import LiveTracking from "../components/LiveTracking";
 import { useGSAP } from "@gsap/react";
@@ -13,7 +13,7 @@ import ConfirmedTrip from "../components/ConfirmedTrip";
 import { useNavigate } from "react-router-dom";
 
 import io from "socket.io-client";
-const socket = io.connect(`http://localhost:4100`)
+const socket = io.connect(`http://localhost:4100`);
 
 const PassengerHome = () => {
     const searchPanel = useRef(null);
@@ -33,18 +33,17 @@ const PassengerHome = () => {
         setConfirmTripComponentOpen,
     } = useContext(PassengerDataContext);
 
-
     useEffect(() => {
-            socket.on("message_from_server", (data) => {
-                
-                if(data.message === "driver_accepted_ride"){
-                    setLookingForDriverComponentOpen(false);
-                    setConfirmTripComponentOpen(true);
-                }
-            });
-        }, [socket]);
+        socket.on("message_from_server", (data) => {
+            if (data.obj.message === "driver_accepted_ride") {
+                setLookingForDriverComponentOpen(false);
+                setConfirmTripComponentOpen(true);
+            }
+        });
+    }, [socket]);
+
     
-    
+
     useGSAP(() => {
         if (findTripComponentOpen) {
             gsap.to(searchPanel.current, {
@@ -66,13 +65,13 @@ const PassengerHome = () => {
             gsap.to(confirmRidePanelRef.current, {
                 top: "",
                 bottom: "0",
-                display:"block"
+                display: "block",
             });
         } else {
             gsap.to(confirmRidePanelRef.current, {
                 top: "100%",
                 bottom: "",
-                display:"none"
+                display: "none",
             });
         }
     }, [lookingForDriverComponentOpen]);
@@ -82,13 +81,13 @@ const PassengerHome = () => {
             gsap.to(chooseVehiclePanel.current, {
                 top: "",
                 bottom: "0%",
-                display:"block"
+                display: "block",
             });
         } else {
             gsap.to(chooseVehiclePanel.current, {
                 top: "100%",
                 bottom: "",
-                display:"none"
+                display: "none",
             });
         }
     }, [chooseVehiclePanelOpen]);
@@ -98,13 +97,13 @@ const PassengerHome = () => {
             gsap.to(confirmedTripRef.current, {
                 top: "",
                 bottom: "0%",
-                display:"block"
+                display: "block",
             });
         } else {
             gsap.to(confirmedTripRef.current, {
                 top: "100%",
                 bottom: "",
-                display:"none"
+                display: "none",
             });
         }
     }, [confirmTripComponentOpen]);

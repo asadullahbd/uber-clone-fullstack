@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { IoMdPerson } from "react-icons/io";
 import { IoLocationSharp } from "react-icons/io5";
 import { TbCoinTakaFilled } from "react-icons/tb";
@@ -18,6 +18,18 @@ const NewRidePanel = () => {
         ongoingRidePanelOpen,
         setOngoingRidePanelOpen,
     } = useContext(DriverDataContext);
+
+    const [passengerDetailsOnNewRidePanel, setPassengerDetailsOnNewRidePanel] =
+        useState(null);
+   
+
+    useEffect(() => {
+        socket.on("message_from_server", (data) => {
+            console.log(data);
+
+            setPassengerDetailsOnNewRidePanel(data.passengerDetails);
+        });
+    }, [socket]);
     return (
         <>
             <div className="flex flex-col gap-6 p-4 ">
@@ -29,7 +41,11 @@ const NewRidePanel = () => {
                         src="https://developerasad.xyz/static/media/asad-tshirt.58afc33efad9f9113298.jpg"
                         alt=""
                     />
-                    <h3 className="font-semibold">Asad Ullah</h3>
+                    <h3 className="font-semibold">
+                        {passengerDetailsOnNewRidePanel
+                            ? passengerDetailsOnNewRidePanel.name
+                            : "name..."}
+                    </h3>
                     <h4 className="font-semibold">2.2 KM</h4>
                 </div>
                 <div className="flex items-center gap-3 border-b-2 pb-3">
@@ -69,7 +85,9 @@ const NewRidePanel = () => {
                             setOngoingRidePanelOpen(true);
 
                             socket.emit("message_from_client", {
-                                message: "driver_accepted_ride",
+                                obj: {
+                                    message: "driver_accepted_ride",
+                                },
                             });
                         }}
                         className="w-full bg-green-600 mt-2 rounded py-2 text-white block text-center font-semibold"

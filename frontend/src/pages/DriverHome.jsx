@@ -28,14 +28,16 @@ const DriverHome = () => {
 
     useEffect(() => {
         socket.on("message_from_server", (data) => {
-            if(data.message === "searching_driver"){
+            if(data.obj.message === "searching_driver"){
                 setNewRidePanelOpen(true);
             }
-            if(data.message === "driver_accepted_ride"){
+            if(data.obj.message === "driver_accepted_ride"){
                 setNewRidePanelOpen(false);
             }
         });
     }, [socket]);
+
+    
 
     const liveMap = useRef(null);
     const driverDetailsRef = useRef(null);
@@ -136,7 +138,9 @@ const DriverHome = () => {
                         src="https://simonpan.com/wp-content/themes/sp_portfolio/assets/uber-unexpected-pullover.jpg"
                         alt=""
                     />
-                    {/* <LiveTracking/> */}
+                    {/* <div className="h-screen">
+                    <LiveTracking/>
+                    </div> */}
                 </div>
                 <div
                     ref={driverDetailsRef}

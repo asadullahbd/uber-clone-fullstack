@@ -46,3 +46,8 @@ export const loginPassenger = async (req, res) => {
     }
 };
 
+export const profilePassenger = (req, res) => {
+    
+    res.status(200).json({passenger:req.passenger});
+};
+

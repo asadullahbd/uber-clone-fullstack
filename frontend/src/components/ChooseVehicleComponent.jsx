@@ -1,8 +1,9 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { IoMdPerson } from "react-icons/io";
 import { PassengerDataContext } from "../context/PassengerContext";
 
 import io from "socket.io-client";
+import axios from "axios";
 const socket = io.connect(`http://localhost:4100`);
 
 const ChooseVehicleComponent = () => {
@@ -14,6 +15,21 @@ const ChooseVehicleComponent = () => {
         destination,
         fare,
     } = useContext(PassengerDataContext);
+
+    const [passengerDetails, setPassengerDetails] = useState(null);
+    useEffect(() => {
+        (async () => {
+            try {
+                const response = await axios.get(
+                    `${import.meta.env.VITE_BASE_URL}/passenger/profile`,
+                    { withCredentials: true }
+                );
+                setPassengerDetails(response.data);
+            } catch (error) {
+                console.error(`error fetching driver details`, error);
+            }
+        })();
+    }, []);
 
     return (
         <>
@@ -29,9 +45,16 @@ const ChooseVehicleComponent = () => {
                         setFindTripComponentOpen(false);
 
                         socket.emit("message_from_client", {
-                            message: "searching_driver",
+                            obj: {
+                                message: "searching_driver",
+                                passengerDetails: passengerDetails,
+                            },
                         });
                     }}
+
+
+                  
+                    
                     className="border border-gray-200 p-2 my-1"
                 >
                     <div className="flex justify-start items-center overflow-hidden">
@@ -55,14 +78,16 @@ const ChooseVehicleComponent = () => {
                     </div>
                 </div>
 
-                <div
+                {/* <div
                     onClick={() => {
                         setLookingForDriverComponentOpen(true);
                         setChooseVehiclePanelOpen(false);
                         setFindTripComponentOpen(false);
 
                         socket.emit("message_from_client", {
-                            message: "searching_driver",
+                            obj:{
+                                message :"searching_driver"
+                            },
                         });
                     }}
                     className="border border-gray-200 p-2 my-1"
@@ -86,15 +111,18 @@ const ChooseVehicleComponent = () => {
                         </div>
                         <h3 className="p-2 font-bold">$65</h3>
                     </div>
-                </div>
-                <div
+                </div> */}
+
+                {/* <div
                     onClick={() => {
                         setLookingForDriverComponentOpen(true);
                         setChooseVehiclePanelOpen(false);
                         setFindTripComponentOpen(false);
 
                         socket.emit("message_from_client", {
-                            message: "searching_driver",
+                            obj:{
+                                message :"searching_driver"
+                            },
                         });
                     }}
                     className="border border-gray-200 p-2 my-1"
@@ -118,7 +146,7 @@ const ChooseVehicleComponent = () => {
                         </div>
                         <h3 className="p-2 font-bold">$100</h3>
                     </div>
-                </div>
+                </div> */}
             </div>
         </>
     );
