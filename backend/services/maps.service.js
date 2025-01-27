@@ -68,3 +68,4 @@ export const getAutoCompleteSuggestionsService = async (input) => {
         throw err;
     }
 };
+
