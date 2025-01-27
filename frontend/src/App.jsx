@@ -1,6 +1,6 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
-import PassengerHome from "./pages/passengerHome";
+import PassengerHome from "./pages/PassengerHome";
 import PassengerSignUp from "./pages/PassengerSignUp";
 import StartPage from "./pages/StartPage";
 import PassengerLogin from "./pages/PassengerLogin";
