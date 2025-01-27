@@ -1,9 +1,17 @@
-import React from "react";
+import React, { useContext } from "react";
 import { IoMdPerson } from "react-icons/io";
 import { IoLocationSharp } from "react-icons/io5";
 import { TbCoinTakaFilled } from "react-icons/tb";
+import { RiPinDistanceFill } from "react-icons/ri";
+import { PassengerDataContext } from "../context/PassengerContext";
 
 const LookingForDriver = () => {
+    const {
+        travelDistanceInKm,
+            pickupLocation,
+            destination,
+            totalFare
+        } = useContext(PassengerDataContext);
     return (
         <>
             <div className="flex flex-col gap-3 p-4">
@@ -44,8 +52,8 @@ const LookingForDriver = () => {
                         <IoMdPerson />
                     </span>
                     <div>
-                        <h4 className="font-semibold text-xl">1201/11A</h4>
-                        <p className="text-lg">airport,dhaka</p>
+                        <h4 className="font-semibold text-xl">From</h4>
+                        <p className="text-lg">{pickupLocation}</p>
                     </div>
                 </div>
 
@@ -54,8 +62,18 @@ const LookingForDriver = () => {
                         <IoLocationSharp />
                     </span>
                     <div>
-                        <h4 className="font-semibold text-xl">1941/1</h4>
-                        <p className="text-lg">Sakhipur,Tangail</p>
+                        <h4 className="font-semibold text-xl">To</h4>
+                        <p className="text-lg">{destination}</p>
+                    </div>
+                </div>
+
+                <div className="flex items-center gap-3 border-b-2 pb-3">
+                    <span className="text-xl">
+                    <RiPinDistanceFill />
+                    </span>
+                    <div>
+                        <h4 className="font-semibold text-xl">Distance</h4>
+                        <p className="text-lg">{travelDistanceInKm?travelDistanceInKm:0} KM</p>
                     </div>
                 </div>
 
@@ -64,7 +82,7 @@ const LookingForDriver = () => {
                         <TbCoinTakaFilled />
                     </span>
                     <div>
-                        <h4 className="font-semibold text-xl">$280</h4>
+                        <h4 className="font-semibold text-xl"><span className="text-xxl font-bold">&#2547;</span> {totalFare?totalFare:0}</h4>
                         <p className="text-lg">Cash</p>
                     </div>
                 </div>

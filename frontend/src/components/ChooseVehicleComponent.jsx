@@ -4,7 +4,7 @@ import { PassengerDataContext } from "../context/PassengerContext";
 
 import io from "socket.io-client";
 import axios from "axios";
-const socket = io.connect(`http://localhost:4100`);
+const socket = io.connect(`${import.meta.env.VITE_BASE_URL}`);
 
 const ChooseVehicleComponent = () => {
     const {
@@ -13,7 +13,8 @@ const ChooseVehicleComponent = () => {
         setLookingForDriverComponentOpen,
         pickupLocation,
         destination,
-        fare,
+        travelDistanceInKm,
+        totalFare
     } = useContext(PassengerDataContext);
 
     const [passengerDetails, setPassengerDetails] = useState(null);
@@ -31,6 +32,9 @@ const ChooseVehicleComponent = () => {
         })();
     }, []);
 
+    
+    
+
     return (
         <>
             <div className="flex flex-col justify-between items-start gap-5 p-7">
@@ -44,17 +48,19 @@ const ChooseVehicleComponent = () => {
                         setChooseVehiclePanelOpen(false);
                         setFindTripComponentOpen(false);
 
+                        
+
                         socket.emit("message_from_client", {
                             obj: {
                                 message: "searching_driver",
                                 passengerDetails: passengerDetails,
+                                pickupLocation,
+                                destination,
+                                totalFare,
+                                travelDistanceInKm
                             },
                         });
                     }}
-
-
-                  
-                    
                     className="border border-gray-200 p-2 my-1"
                 >
                     <div className="flex justify-start items-center overflow-hidden">
@@ -71,10 +77,12 @@ const ChooseVehicleComponent = () => {
                                     <span>4</span>
                                 </div>
                             </div>
-                            <h5 className="font-semibold">2 mins away</h5>
+                            <h5 className="font-semibold">
+                                {travelDistanceInKm?travelDistanceInKm:0} KM
+                            </h5>
                             <p className="text-sm">Affordable,compact rides</p>
                         </div>
-                        <h3 className="p-2 font-bold">$130</h3>
+                        <h3 className="p-2 font-bold"><span className="text-xxl font-bold">&#2547;</span> {totalFare?totalFare:0}</h3>
                     </div>
                 </div>
 

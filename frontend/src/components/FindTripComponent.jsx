@@ -13,6 +13,10 @@ const FindTripComponent = () => {
         setPickupLocation,
         setDestination,
         setPlaceSuggestions,
+        pickupLocation,
+        destination,
+        travelDistanceInKm, setTravelDistanceInKm,
+        totalFare, setTotalFare
     } = useContext(PassengerDataContext);
 
     const pickupLocationRef = useRef(null);
@@ -27,29 +31,52 @@ const FindTripComponent = () => {
 
         if (value.length > 2) {
             try {
-                // const response = await axios.get(
-                //     `${import.meta.env.VITE_BASE_URL}/maps/getSuggestions`,
-                //     {
-                //         withCredentials: true,
-                //         params: {
-                //             input: value
-                //         },
-                //     }
-                // );
+                const response = await axios.get(
+                    `${import.meta.env.VITE_BASE_URL}/maps/getSuggestions`,
+                    {
+                        withCredentials: true,
+                        params: {
+                            input: value
+                        },
+                    }
+                );
 
-                const response = {
-                    data: [
-                        "dhaba",
-                        "Dhamaka Premium Indian Kitchen & Lounge, Virginia Parkway, McKinney, TX, USA",
-                        "Dhaka, Bangladesh",
-                        "Dharmasthala, Karnataka, India",
-                        "dharamshala",
-                    ],
-                };
+                // const response = {
+                //     data: [
+                //         "dhaba",
+                //         "Dhamaka Premium Indian Kitchen & Lounge, Virginia Parkway, McKinney, TX, USA",
+                //         "Dhaka, Bangladesh",
+                //         "Dharmasthala, Karnataka, India",
+                //         "dharamshala",
+                //          "Cox's Bazar, Bangladesh"
+                //     ],
+                // };
                 setPlaceSuggestions(response.data);
             } catch (error) {
                 console.error(`error fetching auto suggestions`, error);
             }
+        }
+    };
+
+    const findDistance = async () => {
+        try {
+            const response = await axios.get(
+                `https://maps.gomaps.pro/maps/api/distancematrix/json?destinations=${destination}&origins=${pickupLocation}&key=${import.meta.env.VITE_GOMAPS_API_KEY}`
+            );
+            console.log(response.data);
+
+                const distanceInKm = Math.ceil(
+                    response.data.rows[0]?.elements[0]?.distance?.value / 1000
+                )
+                setTravelDistanceInKm(
+                    distanceInKm
+                );
+                setTotalFare(distanceInKm * 10)
+                
+            
+            
+        } catch (error) {
+            console.error(`error fetching driver details`, error);
         }
     };
    
@@ -74,6 +101,7 @@ const FindTripComponent = () => {
 
         setPickupLocation(pickupLocationRef.current.value);
         setDestination(destinationRef.current.value);
+        findDistance();
     };
 
     return (

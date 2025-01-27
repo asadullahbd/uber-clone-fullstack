@@ -13,7 +13,7 @@ import ConfirmedTrip from "../components/ConfirmedTrip";
 import { useNavigate } from "react-router-dom";
 
 import io from "socket.io-client";
-const socket = io.connect(`http://localhost:4100`);
+const socket = io.connect(`${import.meta.env.VITE_BASE_URL}`);
 
 const PassengerHome = () => {
     const searchPanel = useRef(null);

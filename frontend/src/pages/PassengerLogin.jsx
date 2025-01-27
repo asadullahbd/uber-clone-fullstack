@@ -85,7 +85,7 @@ const PassengerLogin = () => {
                     </p>
                 </div>
                 <div className="w-full">
-                    <Link to={"/driver-login"} className=" mt-2 rounded w-full bg-[#000000] py-2 text-white block text-center font-semibold">
+                    <Link to={"/driver-login"} className=" mt-2 rounded w-full bg-yellow-500 py-2 text-black block text-center font-semibold">
                         Sign in as Driver
                     </Link>
                 </div>

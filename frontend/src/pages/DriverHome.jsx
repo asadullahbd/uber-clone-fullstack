@@ -15,7 +15,7 @@ import OngoingRide from "../components/OngoingRide";
 import FinishRide from "../components/FinishRide";
 
 import io from "socket.io-client";
-const socket = io.connect(`http://localhost:4100`)
+const socket = io.connect(`${import.meta.env.VITE_BASE_URL}`)
 
 const DriverHome = () => {
     const {
@@ -134,7 +134,7 @@ const DriverHome = () => {
                         <TbLogout />
                     </span>
                     <img
-                        className=" h-screen"
+                        className=" h-screen w-full"
                         src="https://simonpan.com/wp-content/themes/sp_portfolio/assets/uber-unexpected-pullover.jpg"
                         alt=""
                     />
@@ -156,16 +156,16 @@ const DriverHome = () => {
                 </div>
                 <div
                     ref={ongoingRideRef}
-                    className="bg-yellow-400 absolute left-0 w-full"
+                    className="bg-white absolute left-0 w-full"
                 >
                     <OngoingRide />
                 </div>
-                <div
+                {/* <div
                     ref={finishRideRef}
                     className="bg-white absolute left-0 w-full"
                 >
                     <FinishRide />
-                </div>
+                </div> */}
             </div>
         </>
     );

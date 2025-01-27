@@ -11,8 +11,14 @@ const PassengerContext = ({ children }) => {
         useState(false);
     const [pickupLocation, setPickupLocation] = useState("");
     const [destination, setDestination] = useState("");
-    const [placeSuggestions,setPlaceSuggestions] = useState([]);
-        
+    const [placeSuggestions, setPlaceSuggestions] = useState([]);
+    const [
+        driverDetailsOnPassengerContext,
+        setDriverDetailsOnPassengerContext,
+    ] = useState({});
+    const [travelDistanceInKm, setTravelDistanceInKm] = useState(null);
+    const [totalFare, setTotalFare] = useState(0);
+
     const value = {
         findTripComponentOpen,
         setFindTripComponentOpen,
@@ -26,7 +32,15 @@ const PassengerContext = ({ children }) => {
         setPickupLocation,
         destination,
         setDestination,
-        placeSuggestions,setPlaceSuggestions
+        placeSuggestions,
+        setPlaceSuggestions,
+
+        driverDetailsOnPassengerContext,
+        setDriverDetailsOnPassengerContext,
+
+        travelDistanceInKm, setTravelDistanceInKm,
+
+        totalFare, setTotalFare
     };
     return (
         <div>
