@@ -18,7 +18,7 @@ connectDB();
 app.use(express.json());
 app.use(express.urlencoded({extended:true}))
 app.use(cors({
-    origin: `${process.env.FRONTEND_LINK}`, 
+    origin: `${process.env.FRONTEND_LINK}` || "http://localhost:5173", 
     credentials: true // Allow cookies to be sent
   }));
 app.use(cookieParser());
