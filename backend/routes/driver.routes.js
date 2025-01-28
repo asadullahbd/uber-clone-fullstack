@@ -8,4 +8,8 @@ router.post('/signup',createDriverController)
 router.post('/login',loginDriverController)
 router.get('/profile',authDriverMiddleware,profileDriverController)
 
+router.get('/check',(req,res)=>{
+    res.send('Driver route is working fine')
+})
+
 export default router
