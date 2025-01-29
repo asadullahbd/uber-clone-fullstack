@@ -150,8 +150,8 @@ const DriverSignUp = () => {
                                 >
                                     <option value="">type?</option>
                                     <option value="car">car</option>
-                                    <option value="bike">bike</option>
-                                    <option value="cng">cng</option>
+                                    {/* <option value="bike">bike</option>
+                                    <option value="cng">cng</option> */}
                                 </select>
                             </div>
                         </div>

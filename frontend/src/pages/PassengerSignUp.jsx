@@ -5,9 +5,9 @@ import axios from "axios";
 import Cookies from "js-cookie";
 
 const PassengerSignUp = () => {
-    const nameRef = useRef("");
-    const emailRef = useRef("");
-    const passwordRef = useRef("");
+    const nameRef = useRef(null);
+    const emailRef = useRef(null);
+    const passwordRef = useRef(null);
     const navigate = useNavigate();
 
     
@@ -110,7 +110,7 @@ const PassengerSignUp = () => {
                     </p>
                 </div>
                 <div className="w-full">
-                    <Link className=" mt-2 rounded w-full bg-[#10B461] py-2 text-white block text-center font-semibold">
+                    <Link to={"/driver-login"} className=" mt-2 rounded w-full bg-[#10B461] py-2 text-white block text-center font-semibold">
                         Sign in as Driver
                     </Link>
                 </div>

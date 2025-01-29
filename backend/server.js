@@ -5,7 +5,9 @@ const server = http.createServer(app);
 
 const io = new Server(server, {
     cors: {
-        origin: "*",
+        origin: ["https://agency-blog-assignment.vercel.app",
+      "http://localhost:5173",
+      process.env.FRONTEND_LINK],
         methods: ["GET", "POST"],
     },
 });
