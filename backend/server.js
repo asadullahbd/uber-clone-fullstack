@@ -3,6 +3,7 @@ import http from "http";
 import { Server } from "socket.io";
 import dotenv from "dotenv";
 dotenv.config();
+console.log("Frontend Link:", process.env.FRONTEND_LINK);
 
 const server = http.createServer(app);
 
